@@ -1,18 +1,18 @@
 const express = require("express");
 const cors = require("cors");
+
 require("dotenv").config();
+
+const healthRoutes = require("./routes/healthRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.get("/api/health", (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "CloudBox API is running!",
-    });
-});
+app.use("/api", healthRoutes); // Tiền tố /api cho tất cả các route trong healthRoutes
+app.use("/api", authRoutes); // Tiền tố /api cho tất cả các route trong authRoutes
 
 const PORT = process.env.PORT || 5000;
 
